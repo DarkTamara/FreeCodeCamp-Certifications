@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>JavaScript Coursera Notes</title>
+</head>
+
+<body>
+
+    <!-- on laptop/desktop this appears on the left and fixed -->
+    <!-- use at least one media query in the page -->
+    <nav id="navbar">
+        <header>JavaScript Coursera Notes</header>
+        <div id="links">
+            <a href="#Introduction" class="nav-link">Introduction</a>
+            <a href="#Writing_to_the_DOM" class="nav-link">Writing to the DOM</a>
+            <a href="#variables" class="nav-link">Variables</a>
+            <a href="#getting_elements_and_values" class="nav-link">Getting elements and valus</a>
+            <a href="#events" class="nav-link">Events</a>
+            <a href="#THIS" class="nav-link">THIS</a>
+            <a href="#Arrays" class="nav-link">Arrays</a>
+            <a href="#Looping" class="nav-link">Looping</a>
+            <a href="#Forms" class="nav-link">Forms</a>
+            <a href="#Simple_validation" class="nav-link">Simple validation </a>
+            <a href="#Compare_Two_Inputs" class="nav-link">Compare Two Inputs</a>
+            <a href="#Selecting_one_or_more_checkboxes" class="nav-link">Selecting one or more checkboxes</a>
+            <a href="#Check_for_a_attribute" class="nav-link">Check for a attribute</a>    
+        </div>
+    </nav>
+
+    <!-- main contnent here, technical documentation -->
+    <div id="main-doc">
+        <!-- the sections should be min 5, have 10 p total, 5 code total -->
+
+        <section class="main-section">
+            <header id="Introduction">Introduction</header>
+            <p>A pages content is represented by the DOM and JS is used to interact with the DOM.
+                It dose this by using API (Application Programming Interface).
+            </p>
+            <h4>Prompting the user</h4>
+            <p>Some examples of pop up prompts are :</p>
+            <pre><code>
+            alert('HelloWorld')
+            // creates a alert pop up message with the hello world text
+
+            prompt('What is your name?')
+            // creates a alert pop up message with a input field       
+            </code></pre>
+        </section>
+
+        <section class="main-section">
+            <header id="Writing_to_the_DOM">Writing to the DOM</header>
+            <p>You can create a new DOM element by typing:</p>
+            <pre><code>
+            document.write("&lth1&gtHello World&lt/h1&gt")
+            </code></pre>
+            <!-- < &lt       >   &gt -->
+            <p>You can also modify a inner HTML with:</p>
+            <pre><code>
+            element.inenrHTML = 'Time to learn more.'
+
+            document.getElementById('testIdHere').inenrHTML = 'Hello World'
+            </code></pre>
+            <p>Modifing the element's class:</p>
+            <pre><code>
+            x.className = 'open';
+
+        Example : 
+            function openMe() {
+                x = document.getelementById('demo');
+                x.className = 'open';
+            }
+            //this can be a onclick event and can create a close/open button 
+            </code></pre>
+            <p>A goood way to spot bugs is a simple console.log :</p>
+            <pre><code>
+            console.log("Hello World!")
+            </code></pre>
+        </section>
+
+        <section class="main-section">
+            <header id="variables">Variables</header>
+            <p>Variables are used to store data. The anme of a variable can not start 
+                with a number.The name of a variable should be mnemonic (should have a meaning).</p>
+            <pre><code>
+             var meaningfulName = value;
+             //        LHS         RHS
+            </code></pre>
+            <p>LHS = left hand side (variables being updated) and RHS = right hand side (new value being stored in the variable</p>
+            <pre><code>
+            var name = prompt('Name?')
+            document.write(name)
+            //this asks for a name, stores it in  var and then writes it to the DOM
+            </code></pre>
+        </section>
+
+        <section class="main-section">
+            <header id="getting_elements_and_values">Getting elements and values</header>
+            <pre><code>
+            document.getElementById('testIdHere').inenrHTML = 'Hello World'
+
+            var links = document.getElementByTagName('a');
+            //gets the whole node, atributes, values, all
+            </code></pre>
+            <p>Example of a value being writen and used to create a new element:</p>
+            <pre><code>
+            var name;
+            name = prompt('Name?');
+            document.write(name);
+            document.write("&lth1&gt" + name + "&lt/h1&gt"  )
+            </code></pre>
+        </section>
+
+        <section class="main-section">
+            <header id="events">Events</header>
+            <p>An HTML event can be something the browser does, or something a user does.</p>
+            <p>JavaScript lets you execute code when events are detected.
+            HTML allows event handler attributes, with JavaScript code, to be added to HTML elements.</p>
+            <ul>Types of events (common ones):
+                <li>onClick : The user clicks an HTML element</li>
+                <li>onchange : An HTML element has been changed</li>
+                <li>onmouseover : The user moves the mouse over an HTML element</li>
+                <li>onmouseout : The user moves the mouse away from an HTML element</li>
+                <li>onkeydown: The user pushes a keyboard key</li>
+                <li>onload: The browser has finished loading the page</li>
+            </ul>
+            <pre><code>
+            &ltbutton onclick="this.innerHTML = Date()"&gtThe time is?&lt/button&gt
+            //when the button is clicked the inner html of that element is 
+            changed to what the date() function returns
+            </code></pre>
+        </section>
+
+        <section class="main-section">
+            <header id="THIS">THIS</header>
+            <p>The JavaScript this keyword refers to the object it belongs to.</p>
+            <ul>It has different values depending on where it is used:
+
+                <li>In a <b>method</b>, this refers to the <b>owner object</b>.</li>
+                <p>In the example on the top of this page, this refers to the person object.
+                    The person object is the owner of the fullName method.</p>
+                <pre><code>
+                fullName : function() {
+                return this.firstName + " " + this.lastName;
+                }    
+                </code></pre>
+
+                <li><b>Alone</b>, this refers to the <b>global object</b>.</li>
+                <p>In a browser window the Global object is [object Window]</p>
+                <pre><code>
+                let x = this;
+                </code></pre>
+
+                <li>In a <b>function</b>, this refers to the <b>global object</b>.</li>
+                <p>In a JavaScript function, the owner of the function is the default binding for this.
+                    So, in a function, this refers to the Global object [object Window].</p>
+                <pre><code>
+                function myFunction() {
+                return this;
+                }
+                </code></pre>
+
+                <li>In a <b>function, in strict mode,</b> this is <b>undefined</b>undefined.</li>
+                <p>JavaScript strict mode does not allow default binding.</p>
+                <pre><code>
+                "use strict";
+                function myFunction() {
+                return this;
+                }    
+                </code></pre>
+
+                <li>In an <b>event</b>, this refers to <b>the element that received the event</b>.</li>
+                <pre><code>
+                &ltbutton onclick="this.style.display='none'"&gt
+                Click to Remove Me!
+                &lt/button&gt
+                </code></pre>
+
+                <li><b>Methods</b> like call(), and apply() can refer this to <b>any object</b>.</li>
+                <p>In these examples, this is the person object (The person object is the "owner" of the function):</p>
+                <pre><code>
+                const person = {
+                    firstName  : "John",
+                    lastName   : "Doe",
+                    id         : 5566,
+                    myFunction : function() {
+                        return this;
+                    }
+                };
+                </code></pre>
+
+            </ul>
+        </section>
+
+        <section class="main-section">
+            <header id="Arrays">Arrays</header>
+            <p>JavaScript arrays are used to store multiple values in a single variable.Arrays 
+                are a special type of objects. The typeof operator in JavaScript returns "object" for arrays.
+                But, JavaScript arrays are best described as arrays.</p>
+                <p>The difference between objects and arrays is in JavaScript, arrays use numbered indexes and objects use named indexes.</p>
+            <p>To create an array:</p>
+            <pre><code>                
+            const array_name = [item1, item2, ...];   
+
+            const cars = new Array("Saab", "Volvo", "BMW");
+            </code></pre>
+            <p>Accessing elements using the index number</p>
+            <pre><code>
+            const cars = ["Saab", "Volvo", "BMW"];
+            let x = cars[0];    // x = "Saab"   
+            </code></pre>
+            <p>Changing an array:</p>
+            <pre><code>
+            const cars = ["Saab", "Volvo", "BMW"];
+            cars[0] = "Opel";   
+            </code></pre>
+            <p>Array Properties and methods</p>
+            <pre><code>
+            cars.length   // Returns the number of elements
+            cars.sort()   // Sorts the array
+            fruits.push("Lemon");  // Adds a new element (Lemon) to fruits
+            numbers.forEach(myFunction);    
+            //calls a function (a callback function) once for each array element.
+            </code>
+            </pre>
+        </section>
+
+        <section class="main-section">
+            <header id="Looping">Looping</header>
+            <p>Loops can execute a block of code a number of times.</p>
+            <h4>For</h4>
+            <pre><code>
+            for (statement 1; statement 2; statement 3) {
+                // code block to be executed
+                //If you omit statement 2, you must provide a break inside the loop.
+                }
+            </code></pre>
+            <p>Normally you will use statement 1 to initialize the variable used in the loop (let i = 0).</p>
+            <p>Often statement 2 is used to evaluate the condition of the initial variable.
+                This is not always the case, JavaScript doesn't care. Statement 2 is also optional.</p>
+            <p>Often statement 3 increments the value of the initial variable.
+                This is not always the case, JavaScript doesn't care, and statement 3 is optional.
+                Statement 3 can do anything like negative increment (i--), positive increment (i = i + 15), or anything else.</p>
+            <h4>For in </h4>
+            <p>The JavaScript for in statement loops through the properties of an Object:</p>
+            <pre><code>
+            for (key in object) {
+                // code block to be executed
+                }  
+            </code></pre>
+            <h4>For of</h4>
+            <p>The JavaScript for of statement loops through the values of an iterable object.</p>
+            <pre><code>
+            for (variable of iterable) {
+                // code block to be executed
+                } 
+            </code></pre>
+            <p>variable - For every iteration the value of the next property is assigned to the variable. Variable can be declared with const, let, or var.</p>
+            <p>iterable - An object that has iterable properties.</p>
+            <h4>While</h4>
+            <p>The while loop loops through a block of code as long as a specified condition is true.</p>
+            <pre><code>
+            while (condition) {
+                // code block to be executed
+                }   
+            </code></pre>
+            <h4>Do while</h4>
+            <p>The do while loop is a variant of the while loop. This loop will execute the code block once, before checking if the condition is true, then it will repeat the loop as long as the condition is true.</p>
+            <pre><code>
+            do {
+                // code block to be executed
+                }
+            while (condition);   
+            </code></pre>
+        </section>
+
+
+        <section class="main-section">
+            <header id="Forms">Forms</header>
+            <p>An HTML form is used to collect user input. The user input is most often sent to a server for processing.</p>
+            <ul>Attributes of forms:
+                <li>type - textfield, email, button, checkbox, submit, etc.</li>
+                <li>name - helps backend send the data </li>
+                <li>id - used for labels to identify, also useful for JS</li>
+                <li>value</li>
+            </ul>
+        
+        </section>
+
+        <section class="main-section">
+            <header id="Simple_validation">Simple validation</header>
+            <ul>What to validate?
+                <li>the type of input: num/str</li>
+                <li>the format of input: URL including @</li>
+                <li>the value of input: required? need checking ?</li>
+            </ul>
+            <ul>How to validate?
+                <li>use HTML5 input types: browser validation, may not be suported</li>
+                <li>use HTML5 attributes: required ( add custom rules, add novalidate to test and not always fill), pattern (specify format with regex) or limiting number of characters (min, max or step)</li>
+                <li>use JS functions</li>
+            </ul>
+            <pre><code>
+                &ltinput type="text" name="zip_code" pattern="[0-9]{5}" required&gt
+                //zip code checker
+                &ltinput type="numebr" name="zip_code" min='00000' max='99999' required&gt
+                //dose accept 12 but not 5 characters
+            </code></pre>
+
+        </section>
+
+        <section class="main-section">
+            <header id="Compare_Two_Inputs">Compare Two Inputs</header>
+            <PRE><code>
+                &ltinputtype='email' id='email_addr' name='email1' value='me@me.com' required&gt
+                &lt/label&gt
+                &ltinput type='email'id='email_repeat' name='email2' required onchange='check()'&gt
+                &lt/label&gt
+                &ltinput type='submit'value='confrim'
+                 onclick='return check()'&gt
+                 //the return will give a true or false response
+
+                function check(){
+                    var email1=document.getElementById('email_addr');
+                    var email2=document.getElementById('email_repeat');
+                    if (email1.value != email2.value){
+                      alert("The two emails do not match!");
+                      return false; 
+                    }
+                  }
+            </code></PRE>
+        </section>
+
+        <section class="main-section">
+            <header id="Selecting_one_or_more_checkboxes">Selecting one or more checkboxes </header>
+            <p>To select multiple checkboxes set the name value the same.</p>
+            <p>Radiobuttons with same name will be interchanged.</p>
+        </section>
+
+        <section class="main-section">
+            <header id="Check_for_a_attribute">Check for a attribute</header>
+            <pre><code>
+                document.getElementById('same').checked)
+            </code></pre>
+        </section>
+    </div>
+
+</body>
+
+</html>
