@@ -3,39 +3,52 @@
 
 function rot13(str) {
 
-let first = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
-let second = ["N", "O", "P", "Q", "R", "S", "T", "U", "V", "w", "X", "Y", "Z"]
+    let first = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"]
+    let second = ["N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
-//split into words, then words in letters inside an array each word
-let result =  str.split(" ").map( word => {
-    word =  word.split("")
-    
-    for( let i = 0; i <= word.length; i++){
-        let letter = word[i]    //the letter 
 
-        if ( first.includes(letter )){            //check if in the first array
-             word.splice( i , 1 , second[first.indexOf( letter )] )
-            console.log( "letter in first: "+ letter )
-             console.log(  "index in first: " + first.indexOf( letter ) )
-             console.log(  "letter to replace with : " + second[first.indexOf( letter )] )
-             console.log( "word is now: " + word )
-        } else {
-            word.splice( i , 1 , first[second.indexOf( letter )] )
-            console.log( "letter in second: "+ letter )
-            console.log( "index in second: " + second.indexOf( letter ) )
-            console.log(  "letter to replace with : " + first[second.indexOf( letter )] )
-            console.log( "word is now: " + word )
-        } 
+    //split into words then into letters, each word in a array
+    let words =  str.split(" ").map( word => word.split("") )
+
+
+    //add space to each arrays end except the last
+    for( let i = 0 ; i < words.length - 1 ; i++ ){
+        words[i].push(" ")
     }
-})
-//use a for for the to be replaced index
 
 
+    //get rid of teh nesting
+    words = words.flat()
 
-console.log(result)
 
-// return result.map( words => words.join("") ).join("")
+    let solution =[]
+
+
+    //loop in the array and change each letter
+    words.map( letter => {
+
+            //check if in the first array, push the letter with the same index from the second array
+            if ( first.includes(letter))
+            {            
+                solution.push(second[first.indexOf( letter )])
+            } 
+
+            //check if in the second array, push the letter with the same index from the first array
+            else if ( second.includes(letter) )
+            {
+                solution.push(first[second.indexOf( letter )])
+            } 
+
+            //when punctuation or space just push
+            else
+            {
+                solution.push(letter)
+            }
+    } )
+
+return solution.join("")
+
+
+}
   
-  }
-  
-  console.log(rot13("SERR PBQR PNZC"));
+rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.");
