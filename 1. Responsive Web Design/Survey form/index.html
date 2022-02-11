@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    <div id="title-box" >
+        <div id="inside-title-box">
+            <h1 id="title">Game night research survey</h1>
+            <p id="description"> This survey will conclude what you want too see or expect from a D&D/Pathfinder game night with me.</p>
+        </div>
+    </div>
+
+    <form action="" id="survey-form">
+        <div id="personal">
+            <label for="name" id="name-label">Name of player: 
+                <input type="text" id="name" placeholder="Namy name here">
+            </label>
+     
+    
+            <!-- if email is nor formated right = error -->
+            <label for="email" id="name-label">Email (optional): 
+                <input type="email" id="email" placeholder="yourEmail@here.com">
+            </label>
+     
+            <!-- if number not in min max range error -->
+            <label for="age" id="age-label">Age (optional): 
+                <input type="number" id="age" placeholder="Age">
+            </label>
+        </div>
+
+
+        <p id="location">Where should we have the gamenight at ? </p>
+        <select id="dropdown" >
+            <option value="" disabled selected>Select a location</option>
+            <option value=”opt1”>Niti's bling bling palace</option>
+            <option value=”opt2”>Mahu esquisit manson</option>
+            <option value=”opt3”>Big Andrew's undisclosed location</option>
+            <option value=”opt4”>Andrew's pimp ma'crib </option>
+        </select>
+
+        <!-- they must have same name so just one can be selected -->
+        <div id="theme">
+            <p>Theme of the adventure</p>
+            <label>
+                <input type="radio"
+                class="input-radio"
+                name='user-option'> Alice in wonderland inspired adventure
+            </label>
+            <label>
+                <input type="radio"
+                class="input-radio"
+                name='user-option'> A big bank heist
+            </label>
+            <label>
+                <input type="radio"
+                class="input-radio"
+                name='user-option'> Japanaise themed adventure (and narator)
+            </label>
+            <label>
+                <input type="radio"
+                class="input-radio"
+                name='user-option'> A witcher inspired Adventure
+            </label>
+        </div>
+
+        <p>Waht elements you would like to see</p>
+        <label>
+            <input type="checkbox"> Party set up
+        </label> 
+        <label>
+            <input type="checkbox"> Mimics
+        </label>
+        <label>
+            <input type="checkbox"> Plot twists
+        </label>
+        <label>
+            <input type="checkbox"> Love triangles
+        </label>
+        <label>
+            <input type="checkbox"> Drama
+        </label>
+        <label>
+            <input type="checkbox"> Dad jokes
+        </label>
+        <label>
+            <input type="checkbox"> Midget Andrew wearing a dress while running
+        </label>
+        <label>
+            <input type="checkbox"> More roleplay
+        </label>
+        <label>
+            <input type="checkbox"> Friendly spiders
+        </label>
+        <label>
+            <input type="checkbox"> Budda looking guy
+        </label>
+        <label>
+            <input type="checkbox"> Fun science facts
+        </label>
+        <label>
+            <input type="checkbox"> Not so fun science facts
+        </label>
+        <label>
+            <input type="checkbox"> Talking shrimps
+        </label>
+        <label>
+            <input type="checkbox"> Casper the friendly ghost
+        </label>
+
+        <p>Other special requests or/and suggestions? </p>
+        <textarea type="text-area"></textarea>
+
+        <button id="submit">I have chosen </button>
+    </form>
+</body>
+
+
+</html>

@@ -1,0 +1,98 @@
+@media (max-width: 1200px) {
+    html{
+        font-size: 14px;
+    }
+  }
+
+
+  /* use media */
+
+/* use flexbox once at least once*/
+
+body{
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f3f1e2;
+    margin: 1em;
+}
+
+#header{
+    display: flex;
+    flex-direction: row;
+    align-items: center ;
+    justify-content: space-between;
+    background-color: #CB9173;
+    padding: 2em;
+    font-size: 1.35em;
+    color: cornsilk;
+    border-radius: 0.45em;
+}
+
+#img-div{
+    width: 30%;
+}
+
+#header-img{
+    width: 50%;
+    padding-left: 2em;
+}
+
+
+nav{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-decoration: none;
+}
+
+@media (max-width: 860px) {
+    nav{
+        display: flex;
+        flex-direction: column;
+    }
+  }
+
+a{
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 1.35em;
+    color: cornsilk;
+}
+a:hover{
+    font-size: 1.45em;
+
+}
+
+#intro{
+    display: flex;
+    flex-direction: row;
+    padding: 3em 2em 3em;
+}
+
+
+#video-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+
+#form{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 3em 2em 10em;
+    align-items: center;
+}
+
+label{
+    margin-left: 1em;
+
+}
+
+button{
+    margin-left: 1em;
+    border-radius: 0.45em;
+    height: 30%;
+}
