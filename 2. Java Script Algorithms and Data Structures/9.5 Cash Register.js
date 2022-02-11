@@ -48,11 +48,21 @@ function checkCashRegister(price, cash, cid) {
     while (changeUSD != 0 ) {
 
         //if i still have the coin and i can substract it  :  substract it from change, substract from inventary and push to result
-        if ( inventoryCoins > 0 && changeUSD - highestCoinNeeded >= 0){
+        if ( inventoryCoins > 0 && (changeUSD - highestCoinNeeded) >= 0){
 
             changeUSD = parseFloat((changeUSD - highestCoinNeeded).toFixed(2))
             inventoryCoins = inventoryCoins - 1 
+
+
+            //check if the coin is already there
+            //if yes, add up the same coin
+
+            //else push the coin anme and coin array
+
             result.change.push( [ coinNames[coinsValues.indexOf(highestCoinNeeded)] , highestCoinNeeded ] )
+
+
+
         }
 
         //if i don.t have the coin take the next lesser coin 
@@ -64,9 +74,28 @@ function checkCashRegister(price, cash, cid) {
 
     }
 
+//TEST : getting the sorting alghorithm
+
+    let change =  result.change
     //sort out the result to make sure no duplicates appear
 
+    for ( let i = 0 ; i < change.length ; i++  ) {
 
+        for ( let j = i + 1 ; j < change.length - 1 ; j++ ){
+
+            //if they have the same name add them up, overwrite the first one and delete the second one
+            if ( change[ i ][ 0 ] == change[ j ][ 0 ] ){
+
+                change[ i ][ 1 ] = change[ i ][ 1 ] + change[ j ][ 1 ]
+
+                change.splice( change.indexOf(change[ j ]) , 1 )
+
+            }
+
+        }
+
+
+    }
    
 
 
@@ -80,6 +109,6 @@ function checkCashRegister(price, cash, cid) {
 
 }
   
-  checkCashRegister(19.7, 21, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], 
+  checkCashRegister(19.07, 21, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], 
   ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], 
   ["ONE HUNDRED", 100]]);
