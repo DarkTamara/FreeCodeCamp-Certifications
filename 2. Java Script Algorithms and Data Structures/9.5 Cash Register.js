@@ -1,6 +1,6 @@
 function checkCashRegister(price, cash, cid) {
     //price is purchase price 
-    //cash is payment 
+    //cash is payment from client
     //cid is cash in drawer [ array with the currencies]
 
     //the function returns an object with a status and a change key
@@ -10,12 +10,37 @@ function checkCashRegister(price, cash, cid) {
     //{status: "OPEN", change: [...]}               when cid > change, the change i return sorted high to low
 
 
+    let coinsValues = [ 0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100]
+
 //change needed
     let changeUSD = parseFloat((cash - price).toFixed(2))
 
 
-//total cash in drawer
-    let totalCID = parseFloat((cid[0][1] + cid[1][1] + cid[2][1] + cid[3][1] + cid[4][1]+ cid[5][1] + cid[6][1] + cid[7][1] + cid[8][1]).toFixed(2))
+    //total cash in drawer
+    let totalCID = 0
+    
+    //set the coin index to the biggest coin
+    let indexCoin = coinsValues[ coinsValues.length - 1 ]
+
+    //find the bigest coin i can pay with
+    while ( (changeUSD - indexCoin) < 0 ){
+
+        indexCoin = coinsValues[ coinsValues.indexOf( indexCoin ) -1 ]
+
+    }
+
+    //get the index of the biggest paying coin
+    indexCoin = coinsValues.indexOf( indexCoin )
+
+    //add up the coins up to the biggest coin i can pay with
+    for ( let i = 0 ; i <=  indexCoin ; i++ ){
+
+                totalCID = totalCID + cid[ i ][ 1 ] 
+
+    }
+
+    totalCID = parseFloat( totalCID.toFixed(2) )
+
 
 
     if ( changeUSD > totalCID ) {
@@ -29,9 +54,10 @@ function checkCashRegister(price, cash, cid) {
 
 
  //all coinNames, coinsInDrawer and coinsValues have same index
-    let coinsValues = [ 0.01, 0.05, 0.1, 0.25, 1, 5, 10, 20, 100]
+
 
     let coinNames = ["PENNY" , "NICKEL" , "DIME" , "QUARTER" , "ONE" , "FIVE" , "TEN" , "TWENTY" , "ONE HUNDRED"]
+
 
     let coinsInDrawer = [parseInt(cid[0][1] / 0.01) , parseInt(cid[1][1] / 0.05) , parseInt(cid[2][1] / 0.1 ) , parseInt(cid[3][1] / 0.25) , parseInt(cid[4][1] / 1) , 
                             parseInt(cid[5][1] / 5) ,  parseInt(cid[6][1] / 10) ,  parseInt(cid[7][1] / 20) , parseInt(cid[8][1] / 100)]
@@ -41,27 +67,47 @@ function checkCashRegister(price, cash, cid) {
 
 
 //start from 100 and loop backwards till change is 0
-    highestCoinNeeded = 100
+    let highestCoinNeeded = 100
 
     let inventoryCoins = coinsInDrawer[coinsValues.indexOf(highestCoinNeeded)]
+
+    let lastCoinAddedName 
+    let lastCoinAddedValue
 
     while (changeUSD != 0 ) {
 
         //if i still have the coin and i can substract it  :  substract it from change, substract from inventary and push to result
         if ( inventoryCoins > 0 && (changeUSD - highestCoinNeeded) >= 0){
 
+
             changeUSD = parseFloat((changeUSD - highestCoinNeeded).toFixed(2))
             inventoryCoins = inventoryCoins - 1 
 
+            let coinName = coinNames[coinsValues.indexOf(highestCoinNeeded)] 
 
-            //check if the coin is already there
-            //if yes, add up the same coin
+            //when the array is empty 
+            if ( result.change.length == 0 ) {
 
-            //else push the coin anme and coin array
+                result.change.push( [ coinName, highestCoinNeeded ] )
 
-            result.change.push( [ coinNames[coinsValues.indexOf(highestCoinNeeded)] , highestCoinNeeded ] )
+                lastCoinAddedName =  result.change[  result.change.length -1 ][ 0 ]
+                lastCoinAddedValue = result.change[  result.change.length - 1 ][ 1 ]
 
+            }
 
+            //check if the coin is already there by looking in the last array added add up the change
+            else if ( coinName == lastCoinAddedName ) {
+                result.change[  result.change.length - 1 ][ 1 ] = result.change[  result.change.length - 1 ][ 1 ] + lastCoinAddedValue
+            }
+            
+            //else push the coin name and coin array
+            else {
+
+                result.change.push( [ coinName, highestCoinNeeded ] )
+                lastCoinAddedName =  result.change[  result.change.length -1 ][ 0 ]
+                lastCoinAddedValue = result.change[  result.change.length -1 ][ 1 ]
+            }
+            
 
         }
 
@@ -74,41 +120,8 @@ function checkCashRegister(price, cash, cid) {
 
     }
 
-//TEST : getting the sorting alghorithm
-
-    let change =  result.change
-    //sort out the result to make sure no duplicates appear
-
-    for ( let i = 0 ; i < change.length ; i++  ) {
-
-        for ( let j = i + 1 ; j < change.length - 1 ; j++ ){
-
-            //if they have the same name add them up, overwrite the first one and delete the second one
-            if ( change[ i ][ 0 ] == change[ j ][ 0 ] ){
-
-                change[ i ][ 1 ] = change[ i ][ 1 ] + change[ j ][ 1 ]
-
-                change.splice( change.indexOf(change[ j ]) , 1 )
-
-            }
-
-        }
-
-
-    }
-   
-
-
-
-
-
-
-
-
-
+    return result
 
 }
   
-  checkCashRegister(19.07, 21, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], 
-  ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], 
-  ["ONE HUNDRED", 100]]);
+  checkCashRegister(19.5, 20, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]);
